@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class IndexController {
+
     private final RecipeService recipeService;
 
     @RequestMapping({"", "/", "/index"})
