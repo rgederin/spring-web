@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class RecipeServiceImpl implements RecipeService{
+public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
 
@@ -25,5 +25,13 @@ public class RecipeServiceImpl implements RecipeService{
                 .forEachRemaining(recipeSet::add);
 
         return recipeSet;
+    }
+
+    @Override
+    public Recipe findRecipeById(Long id) {
+
+        return recipeRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
     }
 }

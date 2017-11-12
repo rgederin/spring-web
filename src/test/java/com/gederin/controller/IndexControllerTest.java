@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IndexControllerTest {
+
     @Mock
     private Model model;
 
