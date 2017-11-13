@@ -1,5 +1,7 @@
 package com.gederin.service;
 
+import com.gederin.converter.RecipeCommandToRecipe;
+import com.gederin.converter.RecipeToRecipeCommand;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
 
@@ -27,13 +29,19 @@ public class RecipeServiceImplTest {
     @Mock
     private Recipe recipe;
 
+    @Mock
+    private RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    private RecipeCommandToRecipe recipeCommandToRecipe;
+
     private RecipeService recipeService;
 
     @Before
     public void setUp() {
         when(recipeRepository.findById(RECIPE_ID)).thenReturn(Optional.of(recipe));
         when(recipe.getId()).thenReturn(RECIPE_ID);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
