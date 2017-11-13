@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class RecipeCommandToRecipeTest {
     private static final Long RECIPE_ID = 1L;
@@ -37,11 +36,6 @@ public class RecipeCommandToRecipeTest {
         converter = new RecipeCommandToRecipe(new CategoryCommandToCategory(),
                 new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
                 new NotesCommandToNotes());
-    }
-
-    @Test
-    public void testNullObject() throws Exception {
-        assertNull(converter.convert(null));
     }
 
     @Test
