@@ -1,5 +1,7 @@
 package com.gederin.controller;
 
+import com.gederin.command.IngredientCommand;
+import com.gederin.service.IngredientService;
 import com.gederin.service.RecipeService;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class IngredientController {
 
     private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
     @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredients")
@@ -27,5 +30,17 @@ public class IngredientController {
         model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(recipeId)));
 
         return "recipe/ingredient/list";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/show")
+    public String showRecipeIngredient(@PathVariable String recipeId,
+                                       @PathVariable String id, Model model) {
+        IngredientCommand ingredientCommand =
+                ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id));
+
+        model.addAttribute("ingredient", ingredientCommand);
+
+        return "recipe/ingredient/show";
     }
 }
