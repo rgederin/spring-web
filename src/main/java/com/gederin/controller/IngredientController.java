@@ -1,6 +1,8 @@
 package com.gederin.controller;
 
 import com.gederin.command.IngredientCommand;
+import com.gederin.command.RecipeCommand;
+import com.gederin.command.UnitOfMeasureCommand;
 import com.gederin.service.IngredientService;
 import com.gederin.service.RecipeService;
 import com.gederin.service.UnitOfMeasureService;
@@ -47,6 +49,28 @@ public class IngredientController {
 
         return "recipe/ingredient/show";
     }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId, Model model){
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList",  unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
 
     @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")
