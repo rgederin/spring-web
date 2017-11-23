@@ -3,6 +3,7 @@ package com.gederin.service;
 import com.gederin.command.RecipeCommand;
 import com.gederin.converter.RecipeCommandToRecipe;
 import com.gederin.converter.RecipeToRecipeCommand;
+import com.gederin.exception.NotFoundException;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
 
@@ -124,5 +125,14 @@ public class RecipeServiceImplTest {
 
         //then
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        recipeService.findRecipeById(1L);
+
+        //should go boom
     }
 }

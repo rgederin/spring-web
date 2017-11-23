@@ -3,6 +3,7 @@ package com.gederin.service;
 import com.gederin.command.RecipeCommand;
 import com.gederin.converter.RecipeCommandToRecipe;
 import com.gederin.converter.RecipeToRecipeCommand;
+import com.gederin.exception.NotFoundException;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
 
@@ -41,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findRecipeById(Long id) {
         return recipeRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+                .orElseThrow(() -> new NotFoundException("Recipe Not Found"));
     }
 
     @Override
