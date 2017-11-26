@@ -1,4 +1,4 @@
-package com.gederin.service;
+package com.gederin.service.interfaces;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -3,9 +3,9 @@ package com.gederin.controller;
 import com.gederin.command.IngredientCommand;
 import com.gederin.command.RecipeCommand;
 import com.gederin.command.UnitOfMeasureCommand;
-import com.gederin.service.IngredientService;
-import com.gederin.service.RecipeService;
-import com.gederin.service.UnitOfMeasureService;
+import com.gederin.service.interfaces.IngredientService;
+import com.gederin.service.interfaces.RecipeService;
+import com.gederin.service.interfaces.UnitOfMeasureService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,22 +37,24 @@ public class IngredientController {
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/show")
-    public String showRecipeIngredient(@PathVariable String recipeId,
-                                       @PathVariable String id, Model model) {
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+    public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
+        model.addAttribute("ingredient",
+                ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+
         return "recipe/ingredient/show";
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/new")
     public String newRecipe(@PathVariable String recipeId, Model model) {
-
         //make sure we have a good id value
         RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+
         //todo raise exception if null
 
         //need to return back parent id for hidden form property
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+
         model.addAttribute("ingredient", ingredientCommand);
 
         //init uom
@@ -64,15 +66,16 @@ public class IngredientController {
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/update")
-    public String updateRecipeIngredient(@PathVariable String recipeId,
-                                         @PathVariable String id, Model model) {
-        model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+    public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
+        model.addAttribute("ingredient",
+                ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
 
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping("recipe/{recipeId}/ingredient")
+    @PostMapping(path = "recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand command) {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
 
@@ -83,10 +86,9 @@ public class IngredientController {
     }
 
     @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
-    public String deleteIngredient(@PathVariable String recipeId,
-                                   @PathVariable String id) {
-
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id) {
         log.debug("deleting ingredient id:" + id);
+
         ingredientService.deleteById(Long.valueOf(recipeId), Long.valueOf(id));
 
         return "redirect:/recipe/" + recipeId + "/ingredients";

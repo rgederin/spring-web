@@ -1,4 +1,4 @@
-package com.gederin.service;
+package com.gederin.service.implementations;
 
 import com.gederin.command.IngredientCommand;
 import com.gederin.converter.IngredientCommandToIngredient;
@@ -7,6 +7,7 @@ import com.gederin.model.Ingredient;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
 import com.gederin.repository.UnitOfMeasureRepository;
+import com.gederin.service.interfaces.IngredientService;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class IngredientServiceImpl implements  IngredientService{
+public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
@@ -29,27 +30,14 @@ public class IngredientServiceImpl implements  IngredientService{
 
     @Override
     public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("recipe id not found. Id: {}"));
 
-        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
-
-        if (!recipeOptional.isPresent()){
-            //todo impl error handling
-            log.error("recipe id not found. Id: {}", recipeId);
-        }
-
-        Recipe recipe = recipeOptional.get();
-
-        Optional<IngredientCommand> ingredientCommandOptional = recipe.getIngredients().stream()
-                .filter(ingredient -> ingredient.getId().equals(ingredientId))
+        return recipe.getIngredients().stream()
+                .filter(ingredient -> matchIngredientWithId(ingredientId, ingredient))
                 .map(ingredientToIngredientCommand::convert)
-                .findFirst();
-
-        if(!ingredientCommandOptional.isPresent()){
-            //todo impl error handling
-            log.error("Ingredient id not found: {}", ingredientId);
-        }
-
-        return ingredientCommandOptional.get();
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Ingredient id not found: {}"));
     }
 
     @Override
@@ -120,6 +108,10 @@ public class IngredientServiceImpl implements  IngredientService{
         } else {
             log.debug("Recipe Id Not found. Id:" + recipeId);
         }
+    }
+
+    private boolean matchIngredientWithId(Long ingredientId, Ingredient recipeIngredient){
+        return recipeIngredient.getId().equals(ingredientId);
     }
 }
 

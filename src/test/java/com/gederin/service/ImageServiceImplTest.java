@@ -2,6 +2,8 @@ package com.gederin.service;
 
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
+import com.gederin.service.implementations.ImageServiceImpl;
+import com.gederin.service.interfaces.ImageService;
 
 import org.junit.Before;
 import org.junit.Test;

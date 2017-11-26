@@ -1,4 +1,4 @@
-package com.gederin.service;
+package com.gederin.service.implementations;
 
 import com.gederin.command.RecipeCommand;
 import com.gederin.converter.RecipeCommandToRecipe;
@@ -6,6 +6,7 @@ import com.gederin.converter.RecipeToRecipeCommand;
 import com.gederin.exception.NotFoundException;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

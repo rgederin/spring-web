@@ -1,8 +1,9 @@
-package com.gederin.service;
+package com.gederin.service.implementations;
 
 import com.gederin.command.UnitOfMeasureCommand;
 import com.gederin.converter.UnitOfMeasureToUnitOfMeasureCommand;
 import com.gederin.repository.UnitOfMeasureRepository;
+import com.gederin.service.interfaces.UnitOfMeasureService;
 
 import org.springframework.stereotype.Service;
 

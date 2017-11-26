@@ -4,6 +4,7 @@ import com.gederin.command.RecipeCommand;
 import com.gederin.converter.RecipeToRecipeCommand;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

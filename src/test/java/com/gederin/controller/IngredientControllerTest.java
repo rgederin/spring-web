@@ -2,9 +2,9 @@ package com.gederin.controller;
 
 import com.gederin.command.IngredientCommand;
 import com.gederin.command.RecipeCommand;
-import com.gederin.service.IngredientService;
-import com.gederin.service.RecipeService;
-import com.gederin.service.UnitOfMeasureService;
+import com.gederin.service.interfaces.IngredientService;
+import com.gederin.service.interfaces.RecipeService;
+import com.gederin.service.interfaces.UnitOfMeasureService;
 
 import org.junit.Before;
 import org.junit.Test;

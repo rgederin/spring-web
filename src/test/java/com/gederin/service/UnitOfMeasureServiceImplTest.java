@@ -4,6 +4,8 @@ import com.gederin.command.UnitOfMeasureCommand;
 import com.gederin.converter.UnitOfMeasureToUnitOfMeasureCommand;
 import com.gederin.model.UnitOfMeasure;
 import com.gederin.repository.UnitOfMeasureRepository;
+import com.gederin.service.implementations.UnitOfMeasureServiceImpl;
+import com.gederin.service.interfaces.UnitOfMeasureService;
 
 import org.junit.Before;
 import org.junit.Test;

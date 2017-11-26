@@ -2,7 +2,7 @@ package com.gederin.controller;
 
 import com.gederin.command.RecipeCommand;
 import com.gederin.exception.NotFoundException;
-import com.gederin.service.RecipeService;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,6 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
-
         model.addAttribute("recipe", recipeService.findRecipeById(new Long(id)));
 
         return "recipe/show";
@@ -46,6 +45,7 @@ public class RecipeController {
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
+
         return RECIPE_RECIPEFORM_URL;
     }
 
@@ -54,9 +54,7 @@ public class RecipeController {
 
         if (bindingResult.hasErrors()) {
 
-            bindingResult.getAllErrors().forEach(objectError -> {
-                log.debug(objectError.toString());
-            });
+            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
 
             return RECIPE_RECIPEFORM_URL;
         }
@@ -68,17 +66,16 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id) {
-
         log.debug("Deleting id: " + id);
 
         recipeService.deleteRecipeById(Long.valueOf(id));
+
         return "redirect:/";
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(Exception exception) {
-
         log.error("Handling not found exception");
         log.error(exception.getMessage());
 

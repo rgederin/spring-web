@@ -9,6 +9,8 @@ import com.gederin.model.Ingredient;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
 import com.gederin.repository.UnitOfMeasureRepository;
+import com.gederin.service.implementations.IngredientServiceImpl;
+import com.gederin.service.interfaces.IngredientService;
 
 import org.junit.Before;
 import org.junit.Test;

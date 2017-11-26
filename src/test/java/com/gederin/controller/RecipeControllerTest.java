@@ -4,7 +4,7 @@ package com.gederin.controller;
 import com.gederin.command.RecipeCommand;
 import com.gederin.exception.NotFoundException;
 import com.gederin.model.Recipe;
-import com.gederin.service.RecipeService;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.junit.Before;
 import org.junit.Test;

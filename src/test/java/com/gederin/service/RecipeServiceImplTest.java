@@ -6,6 +6,8 @@ import com.gederin.converter.RecipeToRecipeCommand;
 import com.gederin.exception.NotFoundException;
 import com.gederin.model.Recipe;
 import com.gederin.repository.RecipeRepository;
+import com.gederin.service.implementations.RecipeServiceImpl;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.junit.Before;
 import org.junit.Test;

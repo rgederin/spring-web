@@ -1,6 +1,6 @@
 package com.gederin.controller;
 
-import com.gederin.service.RecipeService;
+import com.gederin.service.interfaces.RecipeService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
